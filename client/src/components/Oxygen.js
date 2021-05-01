@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -8,6 +8,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
+import axios from 'axios';
+
 const StyledTableCell = withStyles((theme) => ({
   head: {
     backgroundColor: "#2C5364",
@@ -62,6 +64,20 @@ const useStyles = makeStyles({
 
 export default function Oxygen() {
   const classes = useStyles();
+  const [o2dealers,setO2Dealers] = useState([]);
+  
+  const getO2Dealers = ()=>{
+    axios.get("http://localhost:8082/stores",{params:{'category':'Oxygen dealer'}})
+    .then((resp)=>{
+      console.log(resp.data);
+      setO2Dealers(resp.data);
+    })
+    .catch(err=>{console.log(err)});
+  }
+
+  useEffect(()=>{
+    getO2Dealers();
+  },[])
 
   return (
     <div className={classes.root}>
@@ -80,14 +96,14 @@ export default function Oxygen() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
+        {o2dealers.map((row) => (
             <StyledTableRow key={row.name}>
               <StyledTableCell component="th" scope="row">
                 {row.name}
               </StyledTableCell>
-              <StyledTableCell align="right">{row.calories}</StyledTableCell>
-              <StyledTableCell align="right">{row.fat}</StyledTableCell>
-              <StyledTableCell align="right">{row.carbs}</StyledTableCell>
+              <StyledTableCell align="right">{row.location}</StyledTableCell>
+              <StyledTableCell align="right">{row.supplies[0].quantity}</StyledTableCell>
+              <StyledTableCell align="right">{row.contactno}</StyledTableCell>
             </StyledTableRow>
           ))}
         </TableBody>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState,useEffect} from 'react';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -8,6 +8,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
+import axios from 'axios';
+
 const StyledTableCell = withStyles((theme) => ({
   head: {
     backgroundColor: "#2C5364",
@@ -62,6 +64,19 @@ const useStyles = makeStyles({
 
 export default function BedAvailability() {
   const classes = useStyles();
+  const [hospitals,setHospitals]= useState([]);
+
+  const getHospitals = ()=>{
+    axios.get("http://localhost:8082/hospitals")
+    .then((resp)=>{
+      setHospitals(resp.data);
+    })
+    .catch(err=>{console.log(err)});
+  }
+
+  useEffect(()=>{
+      getHospitals();
+  });
 
   return (
     <div className={classes.root}>
@@ -80,14 +95,15 @@ export default function BedAvailability() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <StyledTableRow key={row.name}>
+        {hospitals.map((hospital) => (
+            <StyledTableRow key={hospital._id}>
               <StyledTableCell component="th" scope="row">
-                {row.name}
+                {hospital.name}
+                {/* {hospital.location} */}
               </StyledTableCell>
-              <StyledTableCell align="right">{row.calories}</StyledTableCell>
-              <StyledTableCell align="right">{row.fat}</StyledTableCell>
-              <StyledTableCell align="right">{row.carbs}</StyledTableCell>
+              <StyledTableCell align="right">{hospital.beds}</StyledTableCell>
+              <StyledTableCell align="right">{hospital.icuwitho2}</StyledTableCell>
+              <StyledTableCell align="right">{hospital.icubeds}</StyledTableCell>
               <StyledTableCell align="right">
                   <span>
                   <Button variant="contained" color="primary">

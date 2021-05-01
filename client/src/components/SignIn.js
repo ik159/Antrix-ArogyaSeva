@@ -1,5 +1,4 @@
 import React ,{ createRef,useRef} from 'react';
-import {useHistory} from 'react-router-dom';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -46,35 +45,20 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Login(props) {
+export default function SignIn(props) {
   const classes = useStyles();
   const emailRef = createRef();
   const passwordRef = createRef();
-  const history = useHistory();
 
   const loginUser = ()=>{
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
-    
-    // Auth.login(email,password)
-    // .then(()=>{
-    //   //props.history.push("/oxygen");
-    //   console.dir(history);
-    //   history.push("/");
-    // })
-    // .catch((err)=>{console.log(err)})
-    axios.post("http://localhost:8082/users/login",{email,password},{
-      headers:{
-       'Content-Type':'application/json'
-      }
-    })
+    Auth.login(email,password)
     .then((resp)=>{
-      console.log(resp.data);
-      localStorage.setItem("user",resp.data.token);
-      props.history.push("/");
-      //history.push("/");
+      console.log(resp);
+      props.history.push("/oxygen");
     })
-    .catch(err=>{console.log(err)});
+    .catch((err)=>{console.log(err)})
   }
 
   return (
@@ -126,7 +110,7 @@ export default function Login(props) {
               className={classes.submit}
               onClick={loginUser}
             >
-              Sign Up
+              Sign In
             </Button>
             <Grid>
               <Grid item xs>

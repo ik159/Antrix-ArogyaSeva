@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -8,6 +8,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
+import axios from 'axios';
+
 const StyledTableCell = withStyles((theme) => ({
   head: {
     backgroundColor: "#2C5364",
@@ -68,6 +70,29 @@ const useStyles = makeStyles({
 
 export default function Donors() {
   const classes = useStyles();
+  const [donors,setDonors] = useState([]);
+  const [plasmadonors,setPlasmaDonors] = useState([]);
+
+  const getBloodDonors = ()=>{
+    //console.log(process.env.REACT_APP_API_URI+'volunteers/donors/blood');
+    axios.get('http://localhost:8082/volunteers/donors/blood')
+    .then((resp)=>{
+        setDonors(resp.data);
+    })
+    .catch(err=>{console.log(err)});
+  }
+  const getPlasmaDonors = ()=>{
+    axios.get('http://localhost:8082/volunteers/donors/plasma')
+    .then((resp)=>{
+        setPlasmaDonors(resp.data);
+    })
+    .catch(err=>{console.log(err)});
+  }
+
+  useEffect(()=>{
+    getBloodDonors();
+    getPlasmaDonors();
+  },[])
 
   return (
     <div className={classes.root}>
@@ -86,13 +111,13 @@ export default function Donors() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <StyledTableRow key={row.name}>
+        {donors.map((donor) => (
+            <StyledTableRow key={donor.donor.name}>
               <StyledTableCell component="th" scope="row">
-                {row.name}
+                {donor.donor.name}
               </StyledTableCell>
-              <StyledTableCell align="right">{row.type}</StyledTableCell>
-              <StyledTableCell align="right">{row.desc}</StyledTableCell>
+              <StyledTableCell align="right">{donor.bloodtype}</StyledTableCell>
+              <StyledTableCell align="right">{donor.donor.phoneno}</StyledTableCell>
             </StyledTableRow>
           ))}
         </TableBody>
@@ -114,13 +139,13 @@ export default function Donors() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <StyledTableRow key={row.name}>
+        {plasmadonors.map((donor) => (
+            <StyledTableRow key={donor.donor.name}>
               <StyledTableCell component="th" scope="row">
-                {row.name}
+                {donor.donor.name}
               </StyledTableCell>
-              <StyledTableCell align="right">{row.type}</StyledTableCell>
-              <StyledTableCell align="right">{row.desc}</StyledTableCell>
+              <StyledTableCell align="right">{donor.bloodtype}</StyledTableCell>
+              <StyledTableCell align="right">{donor.donor.phoneno}</StyledTableCell>
             </StyledTableRow>
           ))}
         </TableBody>

@@ -15,6 +15,7 @@ import NavBar from './components/NavBar';
 import Oxygen from './components/Oxygen';
 import Feed from './components/Feed';
 import Login from './components/Login';
+import Register from './components/Register';
 function App() {
   return (
     <Router>
@@ -38,6 +39,8 @@ function App() {
         <Route path ="/feed">
            <Feed />
         </Route>
+        <Route path="/register" component={Register}></Route>
+        <Route path="/login"component={Login}></Route>
         <Route path ="/">
            <HomePage />
         </Route>

@@ -1,10 +1,12 @@
-import React ,{ createRef,useRef} from 'react';
-import {useHistory} from 'react-router-dom';
+import React ,{createRef} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControl from '@material-ui/core/FormControl';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
@@ -13,6 +15,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Auth from '../auth/auth';
 import { PinDropSharp } from '@material-ui/icons';
 import axios from 'axios';
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -46,36 +49,41 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Login(props) {
+export default function SignUp(props) {
   const classes = useStyles();
+  const nameRef = React.createRef();
   const emailRef = createRef();
   const passwordRef = createRef();
-  const history = useHistory();
+  const phonenoRef = createRef();
+  const placeRef = createRef();
+  const volunteerRef = createRef();
 
-  const loginUser = ()=>{
-    const email = emailRef.current.value;
-    const password = passwordRef.current.value;
-    
-    // Auth.login(email,password)
-    // .then(()=>{
-    //   //props.history.push("/oxygen");
-    //   console.dir(history);
-    //   history.push("/");
-    // })
-    // .catch((err)=>{console.log(err)})
-    axios.post("http://localhost:8082/users/login",{email,password},{
-      headers:{
-       'Content-Type':'application/json'
-      }
-    })
-    .then((resp)=>{
-      console.log(resp.data);
-      localStorage.setItem("user",resp.data.token);
-      props.history.push("/");
-      //history.push("/");
-    })
-    .catch(err=>{console.log(err)});
-  }
+ const registerUser = ()=>{
+   const name = nameRef.current.value;
+   const email = emailRef.current.value;
+   const password = passwordRef.current.value;
+   const phoneno = phonenoRef.current.value;
+   const place = placeRef.current.value;
+   //const isVolunteer = volunteerRef.current.value;
+   const isVolunteer = false;
+   console.log(name);
+   console.log(email);
+   console.log(password);
+   console.log(phoneno);
+   console.log(place);
+   //console.log(isVolunteer);
+   Auth.register(name,email,password,place,phoneno,false)
+   .then(()=>{
+     props.history.push("/");
+   })
+   .catch(err=>{console.log(err)})
+//   axios.post("http://localhost:8082/users/register",{name,email,password,phoneno,place,isVolunteer})
+//  .then(()=>{
+  
+//   props.history.push("/login");
+//  })
+//  .catch(err=>{console.log(err)})
+}
 
   return (
     <div component="main" className={classes.root}>
@@ -107,6 +115,42 @@ export default function Login(props) {
               margin="normal"
               required
               fullWidth
+              id="name"
+              label="Name"
+              name="name"
+              autoComplete="name"
+              autoFocus
+              inputRef={nameRef}
+            />
+           <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="phoneno"
+              label="Phone number"
+              name="phoneno"
+              autoComplete="phone no"
+              autoFocus
+              inputRef={phonenoRef}
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="place"
+              label="Place"
+              name="place"
+              autoComplete="place"
+              autoFocus
+              inputRef={placeRef}
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
               name="password"
               label="Password"
               type="password"
@@ -114,19 +158,26 @@ export default function Login(props) {
               autoComplete="current-password"
               inputRef={passwordRef}
             />
-            <FormControlLabel
+            {/* <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
             />
+            <FormControl component="fieldset">
+  <FormLabel component="legend">Are you a volunteer?</FormLabel>
+  <RadioGroup aria-label="gender" name="gender1" value={value} onChange={handleChange} ref={volunteerRef}>
+    <FormControlLabel value="true" control={<Radio />} label="Yes" />
+    <FormControlLabel value="false" control={<Radio />} label="No" />
+  </RadioGroup>
+</FormControl> */}
             <Button
+              onClick={registerUser}
               type="submit"
               fullWidth
               variant="contained"
               color="primary"
               className={classes.submit}
-              onClick={loginUser}
             >
-              Sign Up
+              Register
             </Button>
             <Grid>
               <Grid item xs>
