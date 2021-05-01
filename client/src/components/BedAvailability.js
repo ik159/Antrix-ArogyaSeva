@@ -76,7 +76,7 @@ export default function BedAvailability() {
 
   useEffect(()=>{
       getHospitals();
-  });
+  },[]);
 
   return (
     <div className={classes.root}>

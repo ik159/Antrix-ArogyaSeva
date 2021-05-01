@@ -2,7 +2,7 @@
 import './App.css';
 import HomePage from './components/HomePage';
 import {
-  BrowserRouter as Router,
+  BrowserRouter,
   Switch,
   Route,
   Link
@@ -14,13 +14,13 @@ import Volunteering from './components/Volunteering';
 import NavBar from './components/NavBar';
 import Oxygen from './components/Oxygen';
 import Feed from './components/Feed';
-import Login from './components/Login';
-import Register from './components/Register';
-import SignUp from './components/SignUp';
-import SignIn from './components/SignIn';
+import RegisterPage from './components/RegisterPage';
+import SignUpPage from './components/SignUpPage';
+import SignInPage from './components/SignInPage';
+import LoginPage from './components/LoginPage';
 function App() {
   return (
-    <Router>
+    <BrowserRouter>
      <NavBar />
       <Switch >
         <Route path ="/bedAvailability">
@@ -41,15 +41,16 @@ function App() {
         <Route path ="/feed">
            <Feed />
         </Route>
-        <Route path="/register" component={Register}></Route>
-        <Route path="/login"component={Login}></Route>
-        <Route path="/signup" component={SignUp}></Route>
-        <Route path="/signin" component={SignIn}></Route>
+        <Route path="/register" component={RegisterPage}></Route>
+        {/* <Route path="/login"component={Login}></Route> */}
+        <Route path="/signup" component={SignUpPage}></Route>
+        <Route path="/signin" component={SignInPage}></Route>
+        <Route path="/login"component={LoginPage}></Route>
         <Route path ="/">
            <HomePage />
         </Route>
       </Switch>
-    </Router>
+    </BrowserRouter>
   );
 }
 
