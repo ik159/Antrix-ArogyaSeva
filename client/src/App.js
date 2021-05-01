@@ -18,6 +18,8 @@ import RegisterPage from './components/RegisterPage';
 import SignUpPage from './components/SignUpPage';
 import SignInPage from './components/SignInPage';
 import LoginPage from './components/LoginPage';
+import Profile from './components/Profile';
+
 function App() {
   return (
     <BrowserRouter>
@@ -41,6 +43,7 @@ function App() {
         <Route path ="/feed">
            <Feed />
         </Route>
+        <Route path="/profile" component={Profile}></Route>
         <Route path="/register" component={RegisterPage}></Route>
         {/* <Route path="/login"component={Login}></Route> */}
         <Route path="/signup" component={SignUpPage}></Route>

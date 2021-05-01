@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState, useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import Auth from '../auth/auth';
+import {Link} from 'react-router-dom';
 //import MenuIcon from '@material-ui/icons/Menu';
 
 const useStyles = makeStyles((theme) => ({
@@ -27,9 +28,18 @@ const useStyles = makeStyles((theme) => ({
 
 export default function NavBar() {
   const classes = useStyles();
+  const [isUser,setIsUser] = useState(false);
+
   const logoutUser = ()=>{
     Auth.logout();
   }
+
+  useEffect(()=>{
+    if(localStorage.getItem("user")){
+      setIsUser(true);
+    }
+  })
+
   return (
     <div className={classes.root}>
       <AppBar style={{ background: '#203A43' }} position="static">
@@ -40,9 +50,15 @@ export default function NavBar() {
           <Typography variant="h6" className={classes.title}>
             AarogyaSeva
           </Typography>
-          <Button color="inherit">UserName</Button>
-          <Button color="inherit">Settings</Button>
-          <Button color="inherit" onClick={logoutUser}>Logout</Button>
+          {/* <Button color="inherit">UserName</Button> */}
+          {/* <Button color="inherit">Profile</Button> */}
+          <Link to="/profile" style={{color:"white"}}>Profile</Link><span>&nbsp;&nbsp;</span>
+         {isUser && (
+          <Button color="inherit"  onClick={logoutUser}>Logout</Button>
+         )} 
+         {!isUser &&(
+           <Link style={{color:"white"}} to="/login">Login</Link>
+         )}
         </Toolbar>
       </AppBar>
     </div>
