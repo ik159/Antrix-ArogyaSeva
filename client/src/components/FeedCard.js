@@ -6,7 +6,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import { red } from '@material-ui/core/colors';
-
+import Chip from '@material-ui/core/Chip';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -18,8 +18,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function FeedCard() {
+export default function FeedCard(props) {
   const classes = useStyles();
+  const feed = props.feed;
+  console.log(feed);
 
   return (
     <Card className={classes.root}>
@@ -29,13 +31,14 @@ export default function FeedCard() {
             R
           </Avatar>
         }
-        title="Ishan Kumar"
-        subheader="September 14, 2016"
+        title={feed.author.name}
+        subheader={feed.author.phoneno}
       />
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
-          I am ready to help 
+          {feed.content}
         </Typography>
+        <Chip label={feed.category}/>
       </CardContent>
     </Card>
   );

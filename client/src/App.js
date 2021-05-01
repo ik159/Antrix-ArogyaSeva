@@ -16,6 +16,8 @@ import Oxygen from './components/Oxygen';
 import Feed from './components/Feed';
 import Login from './components/Login';
 import Register from './components/Register';
+import SignUp from './components/SignUp';
+import SignIn from './components/SignIn';
 function App() {
   return (
     <Router>
@@ -41,6 +43,8 @@ function App() {
         </Route>
         <Route path="/register" component={Register}></Route>
         <Route path="/login"component={Login}></Route>
+        <Route path="/signup" component={SignUp}></Route>
+        <Route path="/signin" component={SignIn}></Route>
         <Route path ="/">
            <HomePage />
         </Route>

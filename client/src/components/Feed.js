@@ -1,7 +1,8 @@
-import React from 'react'
+import React,{useEffect, useState} from 'react'
 
 import { makeStyles } from '@material-ui/core/styles';
 import FeedCard from './FeedCard';
+import axios from 'axios';
 const useStyles = makeStyles((theme) => ({
     wrapper: {
         display: "grid",
@@ -38,6 +39,19 @@ const feed = [
 
 export default function Feed() {
     const classes = useStyles();
+    const [feeds,setFeeds] = useState([]);
+
+    const getFeeds = ()=>{
+        axios.get("http://localhost:8082/posts")
+        .then((resp)=>{
+            setFeeds(resp.data);
+        })
+        .catch(err=>{console.log(err)})
+    }
+
+    useEffect(()=>{
+        getFeeds();
+    })
     return (
         <div>
             <h4 style={{fontSize : "25px",color:"#BDFFF3" , textAlign : "center"}}>
@@ -45,9 +59,9 @@ export default function Feed() {
             </h4>
             <div className={classes.wrapper}>
             
-                 {feed.map((f) => {
+                 {feeds.map((feed,i) => {
                      return(
-                         <FeedCard />
+                         <FeedCard key={i} feed={feed}/>
                      );
                  })}
             </div>

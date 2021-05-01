@@ -9,6 +9,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import { red } from '@material-ui/core/colors';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import Medicine from './Medicine';
 
 const useStyles = makeStyles((theme) => ({
   
@@ -42,12 +43,12 @@ const useStyles = makeStyles((theme) => ({
 
 
 export default function MedicalSupplyCrad(props) {
-    console.log(props['name']);
-    const store = props;
-    console.log(store.name);
+   
+    const store = props.detail;
+    const medicines = store.supplies;
+    //console.log(medicines);
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
-
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
@@ -56,16 +57,20 @@ export default function MedicalSupplyCrad(props) {
     
           <div className={classes.card}>
                <h4>
-                Medicine Stores
+                Medical Store : {store.name}
             </h4>
                 <Card >
      
      <CardActions disableSpacing>
      <Typography >
-         
-     <pre>
-   {JSON.stringify(props, null, 2)}
- </pre>
+       <div>  
+     {/* <pre> */}
+   {/* {JSON.stringify(props, null, 2)} */}
+   <p>Contact No: {store.contactno}</p>
+   <p>Location: {store.location}</p>
+   <p>Email : {store.email}</p>
+ {/* </pre> */}
+ </div>
      </Typography>
        
        <IconButton
@@ -81,11 +86,22 @@ export default function MedicalSupplyCrad(props) {
      </CardActions>
      <Collapse in={expanded} timeout="auto" unmountOnExit>
        <CardContent>
-         <Typography >Method:</Typography>
-         <Typography paragraph>
-           Heat 1/2 cup of the broth in a pot until simmering, add saffron and set aside for 10
-           minutes.
-         </Typography>
+         <Typography >Medicines:</Typography>
+         {/* <Typography paragraph> */}
+           {medicines.map((medicine,i)=>{
+            //  <div>
+            //     <p>Name: {medicine.name}</p>
+            // <p>Quantity available : {medicine.quantity}</p>
+            // <p>Description: {medicine.description}</p>
+            //  </div>
+            return(
+
+              <Medicine key={i} medicine={medicine}></Medicine>
+            )
+          
+           
+           })}
+         {/* </Typography> */}
          
        </CardContent>
      </Collapse>

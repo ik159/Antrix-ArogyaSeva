@@ -9,7 +9,7 @@ import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import Auth from '../auth/auth';
+import Auth from '../auth/auth_org';
 import { PinDropSharp } from '@material-ui/icons';
 import axios from 'axios';
 
@@ -56,7 +56,7 @@ export default function SignIn(props) {
     Auth.login(email,password)
     .then((resp)=>{
       console.log(resp);
-      props.history.push("/oxygen");
+      props.history.push("/");
     })
     .catch((err)=>{console.log(err)})
   }
@@ -71,7 +71,7 @@ export default function SignIn(props) {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign Up
+            Sign In
           </Typography>
           <form className={classes.form} noValidate>
             <TextField

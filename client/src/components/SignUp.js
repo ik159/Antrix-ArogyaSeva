@@ -1,4 +1,4 @@
-import React ,{createRef} from 'react';
+import React ,{createRef,useState} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -12,8 +12,12 @@ import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import Auth from '../auth/auth';
+import Auth from '../auth/auth_org';
 import { PinDropSharp } from '@material-ui/icons';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import Select from '@material-ui/core/Select';
 import axios from 'axios';
 
 
@@ -47,6 +51,10 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+  },
 }));
 
 export default function SignUp(props) {
@@ -54,35 +62,33 @@ export default function SignUp(props) {
   const nameRef = React.createRef();
   const emailRef = createRef();
   const passwordRef = createRef();
-  const phonenoRef = createRef();
-  const placeRef = createRef();
-  const volunteerRef = createRef();
+  const contactnoRef = createRef();
+  const locationRef = createRef();
+  const [category,setCategory] = useState('');
 
- const registerUser = ()=>{
+  const handleChange = (e)=>{
+    setCategory(e.target.value);
+  }
+
+ const signUpUser = ()=>{
    const name = nameRef.current.value;
    const email = emailRef.current.value;
    const password = passwordRef.current.value;
-   const phoneno = phonenoRef.current.value;
-   const place = placeRef.current.value;
+   const contactno = contactnoRef.current.value;
+   const location = locationRef.current.value;
    //const isVolunteer = volunteerRef.current.value;
-   const isVolunteer = false;
-   console.log(name);
-   console.log(email);
-   console.log(password);
-   console.log(phoneno);
-   console.log(place);
-   //console.log(isVolunteer);
-   Auth.register(name,email,password,place,phoneno,false)
-   .then(()=>{
-     props.history.push("/");
-   })
-   .catch(err=>{console.log(err)})
-//   axios.post("http://localhost:8082/users/register",{name,email,password,phoneno,place,isVolunteer})
-//  .then(()=>{
-  
-//   props.history.push("/login");
-//  })
-//  .catch(err=>{console.log(err)})
+  //  Auth.register(name,email,password,category,location,contactno)
+  //  .then(()=>{
+  //    props.history.push("/");
+  //  })
+  //  .catch(err=>{console.log(err)})
+  axios.post("http://localhost:8082/orgs/register",{name,email,password,category,location,contactno},{
+    'Content-Type':'application/json'
+  })
+ .then(()=>{
+  props.history.push("/");
+ })
+ .catch(err=>{console.log(err)})
 }
 
   return (
@@ -132,7 +138,7 @@ export default function SignUp(props) {
               name="phoneno"
               autoComplete="phone no"
               autoFocus
-              inputRef={phonenoRef}
+              inputRef={contactnoRef}
             />
             <TextField
               variant="outlined"
@@ -144,7 +150,7 @@ export default function SignUp(props) {
               name="place"
               autoComplete="place"
               autoFocus
-              inputRef={placeRef}
+              inputRef={locationRef}
             />
             <TextField
               variant="outlined"
@@ -158,26 +164,28 @@ export default function SignUp(props) {
               autoComplete="current-password"
               inputRef={passwordRef}
             />
-            {/* <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
-            <FormControl component="fieldset">
-  <FormLabel component="legend">Are you a volunteer?</FormLabel>
-  <RadioGroup aria-label="gender" name="gender1" value={value} onChange={handleChange} ref={volunteerRef}>
-    <FormControlLabel value="true" control={<Radio />} label="Yes" />
-    <FormControlLabel value="false" control={<Radio />} label="No" />
-  </RadioGroup>
-</FormControl> */}
+           <FormControl className={classes.formControl}>
+        <InputLabel id="category-label">Category</InputLabel>
+        <Select
+          labelId="category"
+          id="category"
+          value={category}
+          onChange={handleChange}
+        >
+          <MenuItem value={'Hospital'}>Hospital</MenuItem>
+          <MenuItem value={'Medical Store'}>Medical Store</MenuItem>
+          <MenuItem value={'Oxygen dealer'}>Oxygen dealer</MenuItem>
+        </Select>
+      </FormControl>
             <Button
-              onClick={registerUser}
+              onClick={signUpUser}
               type="submit"
               fullWidth
               variant="contained"
               color="primary"
               className={classes.submit}
             >
-              Register
+             Sign Up
             </Button>
             <Grid>
               <Grid item xs>

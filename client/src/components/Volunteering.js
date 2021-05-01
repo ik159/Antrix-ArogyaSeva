@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect,useState } from 'react';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -8,6 +8,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
+import axios from 'axios';
+
 const StyledTableCell = withStyles((theme) => ({
   head: {
     backgroundColor: "#2C5364",
@@ -68,38 +70,53 @@ const useStyles = makeStyles({
 
 export default function Volunteering() {
   const classes = useStyles();
+  const [volunteers,setVolunteers] = useState([]);
+
+  const getVolunteers = ()=>{
+    axios.get("http://localhost:8082/volunteers")
+    .then((resp)=>{
+      setVolunteers(resp.data);
+    })
+    .catch(err=>{console.log(err)})
+  }
+
+  useEffect(()=>{
+    getVolunteers();
+    console.log(volunteers);
+  },[])
 
   return (
     <div className={classes.root}>
         <div style={{marginRight: "20px"}}>
             <h4>
-                Individual Volunteers
+                Volunteers
             </h4>
         <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="customized table">
         <TableHead>
           <TableRow>
             <StyledTableCell>Name</StyledTableCell>
-            
+            <StyledTableCell align="right">Help</StyledTableCell>
+            <StyledTableCell align="right">Place</StyledTableCell>
             <StyledTableCell align="right">Contact</StyledTableCell>
-            
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <StyledTableRow key={row.name}>
+          {volunteers.map((row) => (
+            <StyledTableRow key={row._id}>
               <StyledTableCell component="th" scope="row">
                 {row.name}
               </StyledTableCell>
-              
-              <StyledTableCell align="right">{row.desc}</StyledTableCell>
+              <StyledTableCell align="right">{row.help}</StyledTableCell>
+              <StyledTableCell align="right">{row.place}</StyledTableCell>
+              <StyledTableCell align="right">{row.phoneno}</StyledTableCell>
             </StyledTableRow>
           ))}
         </TableBody>
       </Table>
     </TableContainer>
         </div>
-        <div style={{marginLeft: "20px"}}>
+        {/* <div style={{marginLeft: "20px"}}>
         <h4>
                 Organizations
             </h4>
@@ -126,7 +143,7 @@ export default function Volunteering() {
         </TableBody>
       </Table>
     </TableContainer>
-        </div>
+        </div> */}
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:8082/users/';
+const API_URL = 'http://localhost:8082/orgs/';
 
 class AuthOrg{
     login(email,password){
@@ -28,7 +28,7 @@ class AuthOrg{
     }
 
     getCurrentUser(){
-        return JSON.parse(localStorage.getItem("user")).token;
+        return JSON.parse(localStorage.getItem("user"));
     }
     getUser(){
         return JSON.parse(localStorage.getItem("user"));
