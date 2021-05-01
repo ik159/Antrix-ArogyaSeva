@@ -92,3 +92,11 @@ exports.canUpdateAndDelete = async(req,res,next)=>{
     }
     next();
 }
+
+exports.isDonor = async(req,res,next)=>{
+    const donor = req.body.donor;
+    if(req.user._id != donor){
+        return res.status(400).json({error: 'You are not authorized!'});
+    }
+    next();
+}
