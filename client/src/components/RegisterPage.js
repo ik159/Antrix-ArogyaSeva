@@ -1,6 +1,6 @@
 import React,{useState} from "react";
 import axios from "axios";
-
+import './RegisterPage.css';
 const RegisterPage = (props)=>{
     const nameRef = React.createRef();
     const emailRef = React.createRef();
@@ -44,6 +44,7 @@ const RegisterPage = (props)=>{
 
     return (
         <div className="card">
+            <div className="inner">
             <div className="cardHeader">Register</div>
             <div className="cardBody">
             <div className="inputGroup">
@@ -73,7 +74,10 @@ const RegisterPage = (props)=>{
                     <label htmlFor="password">Password</label>
                     <input type="password" name="password" id="password" ref={passwordRef}></input>
                 </div>
+                <div>
                 <button onClick={registerUser}>Register</button>
+                </div>
+            </div>
             </div>
         </div>
     )

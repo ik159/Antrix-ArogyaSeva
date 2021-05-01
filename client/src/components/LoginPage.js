@@ -2,7 +2,7 @@ import axios from "axios";
 import React from "react";
 import {withRouter} from "react-router";
 import {Link} from 'react-router-dom';
-
+import './LoginPage.css';
 const LoginPage = (props)=>{
     const emailRef = React.createRef();
     const passwordRef = React.createRef();
@@ -27,6 +27,7 @@ const LoginPage = (props)=>{
 
     return (
         <div className="card">
+            <div className="inner">
             <div className="cardHeader">Login</div>
             <div className="cardBody">
                 <div className="inputGroup">
@@ -37,9 +38,14 @@ const LoginPage = (props)=>{
                     <label htmlFor="password">Password</label>
                     <input type="password" name="password" id="password" ref={passwordRef}></input>
                 </div>
-                <button onClick={loginUser}>Login</button>
+               <div >
+               <button onClick={loginUser}>Login</button>
+               </div>
             </div>
+            <div className="cardHeader" style={{fontSize: "20px"}}>
             <Link to="/register" className="acnt"><p>No Account?</p></Link>
+            </div>
+            </div>
         </div>
     )
 };
