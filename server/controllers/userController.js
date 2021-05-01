@@ -62,3 +62,16 @@ exports.getUsers = async(req,res)=>{
         res.status(500).json({'err':err.toString()});
       }
 }
+
+exports.getUserInfo = async(req,res)=>{
+    try{
+        const user = await User.findOne({_id:req.user_id});
+        if(!user){
+            res.status(400).json({'err':err.toString()});
+        }   
+        res.json(user);
+      }
+      catch(err){
+        res.status(500).json({'err':err.toString()});
+      }
+}

@@ -100,3 +100,12 @@ exports.isDonor = async(req,res,next)=>{
     }
     next();
 }
+
+exports.isAuthor = async(req,res,next)=>{
+    const curuser = req.user._id;
+    const author = req.body.author;
+    if(author!==curuser){
+        return res.status(400).json({error: 'You are not authorized!'});
+    }
+    next();
+}
