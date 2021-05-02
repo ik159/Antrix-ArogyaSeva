@@ -7,7 +7,7 @@ const RegisterPage = (props)=>{
     const passwordRef = React.createRef();
     const placeRef = React.createRef();
     const phonenoRef = React.createRef();
-    const [isVolunteer,setIsVolunteer] = useState(false);
+    const [isVolunteer,setIsVolunteer] = useState(true);
 
     const handleChange = (e)=>{
       const ans = e.target.value;
