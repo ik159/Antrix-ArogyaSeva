@@ -47,18 +47,22 @@ exports.updateData = async(req,res)=>{
 exports.addSupplies = async(req,res)=>{
     try{
         var supplies_id = [];
-        const supplies = req.body.supplies;
-        for(var i=0;i<supplies.length;i++){
-            const product = await Product.create(supplies[i]);
+        const supplies = req.body;
+        console.dir(req.body);
+        //for(var i=0;i<supplies.length;i++){
+            const product = await Product.create(supplies);
             if(!product){
                 return res.status(400).json({'err':'Unable to create product'});
             }
             supplies_id.push(product._id);
-        }
+       // }
         //console.dir(supplies_id);
         const store = await Org.findOneAndUpdate(
             {category:req.body.category,_id:req.params.id},{
-                $push:{supplies:{$each:supplies_id}}
+                $push:{supplies:
+                    // {$each:supplies_id}
+                    product._id
+                }
             },{new:true});
         if(!store){
             return res.status(404).json({'err':err.toString()});

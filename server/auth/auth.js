@@ -19,6 +19,7 @@ passport.use('register', new localStrategy(
             if(userExists){
                 return done(null,false,{'message':'User already exists'});
             }
+            //console.dir(req.body);
             const name = req.body.name;
             const place = req.body.place;
             const phoneno = req.body.phoneno;
@@ -41,10 +42,12 @@ passport.use('login', new localStrategy({
         try{
             const user = await User.findOne({email});
             if(!user){
+                console.log('User not found');
                 return done(null,false,{'message':'User not found'});
             }
             const validate = await user.isValidPassword(password);
             if(!validate){
+                console.log('Wrong password');
                 return done(null,false,{'message':'Wrong password'});
             }
             return done(null,user,{'message':'Logged in successfully'});
@@ -86,17 +89,10 @@ exports.verifyToken = async(token)=>{
         return null;
     }
 }
-exports.canUpdateAndDelete = async(req,res,next)=>{
-    if(req.user._id != req.params.id){
-        return res.status(400).json({error:'You are not authorized!'});
-    }
-    next();
-}
 
-exports.isDonor = async(req,res,next)=>{
-    const donor = req.body.donor;
-    if(req.user._id != donor){
-        return res.status(400).json({error: 'You are not authorized!'});
+exports.canUpdateAndDelete = async(req,res,next)=>{
+    if(req.user._id != req.params.id || !req.user.isVolunteer){
+        return res.status(400).json({error:'You are not authorized!'});
     }
     next();
 }
@@ -105,6 +101,14 @@ exports.isAuthor = async(req,res,next)=>{
     const curuser = req.user._id;
     const author = req.body.author;
     if(author!==curuser){
+        return res.status(400).json({error: 'You are not authorized!'});
+    }
+    next();
+}
+
+exports.isDonor = async(req,res,next)=>{
+    const donor = req.body.donor;
+    if(req.user._id != donor){
         return res.status(400).json({error: 'You are not authorized!'});
     }
     next();

@@ -1,12 +1,17 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const bcrypt = require('bcrypt');
+const { TooManyRequests } = require('http-errors');
 
 const OrgSchema = new Schema({
+    isOrg:{
+        type:Boolean,
+        default:true
+    },
     category:{
         type:String,
         required:true,
-        enum:['Hospital','Pharmacy','Medical store','Oxygen dealer']
+        enum:['Hospital','Pharmacy','Medical Store','Oxygen dealer']
     },
     name:{
         type:String,

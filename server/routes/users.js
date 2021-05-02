@@ -17,6 +17,7 @@ async (req,res)=>{
         user:req.user
     });
   }); 
+router.get("/getuser",auth.verifyUser,userController.getUserInfo);
 
 
 

@@ -28,7 +28,8 @@ exports.getVolunteer = async(req,res)=>{
 
 exports.updateInfo = async(req,res)=>{
     try{
-        const volunteer = await User.findOneAndUpdate({isVolunteer:true},req.body,{new:true});
+        const volunteer = await User.findOneAndUpdate({isVolunteer:true,_id:req.params.id},req.body,{new:true});
+        console.dir(req.body);
         if(!volunteer){
             return res.status(400).json({'err':err.toString()});
         }

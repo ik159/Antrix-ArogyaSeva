@@ -14,8 +14,11 @@ router.get("/donors/:id",bloodDonorController.getDonor);
 router.put("/donors/:id",auth.verifyUser,auth.isDonor,bloodDonorController.updateDonorDetails);
 router.delete("/donors/:id",auth.verifyUser,auth.isDonor,bloodDonorController.deleteDonor);
 
+
 router.get("/",volunteerController.getVolunteers);
 router.get("/:id",volunteerController.getVolunteer);
-router.put("/:id",auth.verifyUser,auth.canUpdateAndDelete,volunteerController.updateInfo);
+router.put("/:id",auth.verifyUser,volunteerController.updateInfo);
+
+
 
 module.exports = router;

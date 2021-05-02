@@ -49,7 +49,7 @@ exports.broadcast = async(req,res)=>{
 
 exports.notifyVolunteers = async(req,res)=>{
     try{
-        const volunteers = await user.find({isVolunteer:true,help:req.body.help}).select("_id");
+        const volunteers = await user.find({isVolunteer:true,help:req.query.help}).select("_id");
         console.dir(volunteers);
         const subscribers = await Subscription.find(
             {user:{

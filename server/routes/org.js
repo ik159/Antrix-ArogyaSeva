@@ -6,7 +6,7 @@ const passport = require('passport');
 router.get("/",orgController.getOrgs);
 router.post("/signup",passport.authenticate('signup',{session:false}),
 async (req,res)=>{
-    res.json({
+    await res.json({
         message:'Signed up successfully',
         user:req.user
     });

@@ -3,6 +3,10 @@ const Schema = mongoose.Schema;
 const bcrypt = require('bcrypt');
 
 const UserSchema = new Schema({
+    isOrg:{
+        type:Boolean,
+        default:false
+    },
     name:{
         type:String,
         required:'Name is required'
@@ -27,10 +31,10 @@ const UserSchema = new Schema({
         type:Boolean,
         default:false
     },
-    help:[{         //For volunteers
+    help:{         //For volunteers
         type:String,
         enum:['Financial help','Plasma Donor','Blood Donor','Other']
-    }]
+    }
 },{
     timestamps:true
 });
