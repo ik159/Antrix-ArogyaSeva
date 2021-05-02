@@ -1,8 +1,7 @@
-import { getSuggestedQuery } from '@testing-library/dom';
 import axios from 'axios';
 import React,{useEffect, useState,createRef} from 'react';
 import Auth from '../auth/auth';
-
+import  './Profile.css';
 const Profile = (props)=>{
     const [user,setUser] = useState({});
     //const [category,setCategory]= 
@@ -162,7 +161,7 @@ const SaveHospData = ()=>{
 
     return(
         <div>
-            <h1>Profile Page</h1>
+            <h1 style={{textAlign : "center" , color : "white"}}>Profile Page</h1>
             {isOrg && (
                 <div>
                     <p>Name: {user.name}</p>
@@ -243,15 +242,15 @@ const SaveHospData = ()=>{
             )}
             {!isOrg &&(
                 <div>
-                <div>
-                    <p>Name: {user.name}</p>
-                    <p>Email : {user.email}</p>
-                    <p>Phone No : {user.phoneno}</p>
-                    <p>Place : {user.place}</p>
+                <div className="name_place">
+                    <p><span >Name : </span> {user.name}</p>
+                    <p><span >Email : </span> {user.email}</p>
+                    <p><span >Contact : </span>{user.phoneno}</p>
+                    <p><span >Location : </span> {user.place}</p>
                     </div>
                     {isVolunteer &&(
                         <div className="cardBody">
-                        <p>Help : {user.help}</p>
+                        <p><span> Currently contributing as : </span>{user.help}</p>
                        <div className="inputGroup" onChange={handleChange}>
                 <label>How can you help?</label>
                     <select value={help} onChange={handleChange}>
@@ -261,14 +260,14 @@ const SaveHospData = ()=>{
                         <option value={'Other'}>Other</option>
                     </select>
                 </div>
-                <button onClick={addHelp}>Update</button>
+                <div><button onClick={addHelp}>Update</button> </div>
                 </div>
                     )}
                     {isdonor && (
-       <div>
+       <div className="donorupdate">
            <p>Blood group : {donor.bloodtype}</p>
-           <p>Plasma :{donor.plasma}</p>
-                 <div className="cardHeader">Edit details</div>
+           <p>Plasma : {donor.plasma}</p>
+                 <div className="cardHeader" style={{color: 'white'}}>Edit details</div>
                     <div className="cardBody">
                         <div className="inputGroup">
                                 <label htmlFor="bloodtype">Blood type</label>
@@ -281,7 +280,8 @@ const SaveHospData = ()=>{
                         <option value="no">No</option>
                     </select>
                 </div>
-                <button onClick={addDonor}>Save</button>
+                <div>
+                <button onClick={addDonor}>Save</button> </div>
                 </div>
                 </div>  
                     )}
