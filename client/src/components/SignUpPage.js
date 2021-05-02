@@ -1,5 +1,7 @@
 import React,{useState} from "react";
 import axios from "axios";
+import {Link} from "react-router-dom";
+import './RegisterPage.css';
 
 const SignUpPage = (props)=>{
     const nameRef = React.createRef();
@@ -39,6 +41,7 @@ const SignUpPage = (props)=>{
 
     return (
         <div className="card">
+            <div className="inner">
             <div className="cardHeader">Sign Up</div>
             <div className="cardBody">
             <div className="inputGroup" onChange={handleChange}>
@@ -70,6 +73,11 @@ const SignUpPage = (props)=>{
                     <input type="password" name="password" id="password" ref={passwordRef}></input>
                 </div>
                 <button onClick={registerUser}>Sign Up</button>
+                <br></br>
+                <Link className="link-m" to="/signin">Already have an account?</Link>
+                <br></br>
+                <Link className="link-m" to="/register">User/Volunteer?</Link>
+            </div>
             </div>
         </div>
     )

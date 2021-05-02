@@ -1,13 +1,15 @@
 import React,{useState} from "react";
 import axios from "axios";
 import './RegisterPage.css';
+import {Link} from 'react-router-dom';
+
 const RegisterPage = (props)=>{
     const nameRef = React.createRef();
     const emailRef = React.createRef();
     const passwordRef = React.createRef();
     const placeRef = React.createRef();
     const phonenoRef = React.createRef();
-    const [isVolunteer,setIsVolunteer] = useState(false);
+    const [isVolunteer,setIsVolunteer] = useState(true);
 
     const handleChange = (e)=>{
       const ans = e.target.value;
@@ -26,6 +28,7 @@ const RegisterPage = (props)=>{
         const phoneno = phonenoRef.current.value;
         const place = placeRef.current.value;
         // const isVolunteer = volunteerRef.current.value;
+        console.log(isVolunteer);
 
         axios.post("http://localhost:8082/users/register",{
             name,email,password,phoneno,place,isVolunteer
@@ -77,6 +80,9 @@ const RegisterPage = (props)=>{
                 <div>
                 <button onClick={registerUser}>Register</button>
                 </div>
+                <Link className="link-m" to="/login">Already have an account?</Link>
+                <br></br>
+                <Link className="link-m" to="/signup">Hospital/Medical store/Oxygen supplier?</Link>
             </div>
             </div>
         </div>

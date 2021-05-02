@@ -82,7 +82,7 @@ export default function Volunteering() {
 
   useEffect(()=>{
     getVolunteers();
-    console.log(volunteers);
+    //console.log(volunteers);
   },[])
 
   return (

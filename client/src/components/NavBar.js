@@ -38,7 +38,10 @@ export default function NavBar() {
     if(localStorage.getItem("user")){
       setIsUser(true);
     }
-  })
+    else{
+    setIsUser(false);
+    console.log(isUser);
+  }},[])
 
   return (
     <div className={classes.root}>

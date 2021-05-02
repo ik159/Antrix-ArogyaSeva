@@ -20,6 +20,8 @@ import SignInPage from './components/SignInPage';
 import LoginPage from './components/LoginPage';
 import Profile from './components/Profile';
 
+require('dotenv').config();
+
 function App() {
   return (
     <BrowserRouter>
@@ -40,8 +42,8 @@ function App() {
         <Route path ="/oxygen">
            <Oxygen />
         </Route>
-        <Route path ="/feed">
-           <Feed />
+        <Route path ="/feed" component={Feed}>
+           {/* <Feed /> */}
         </Route>
         <Route path="/profile" component={Profile}></Route>
         <Route path="/register" component={RegisterPage}></Route>

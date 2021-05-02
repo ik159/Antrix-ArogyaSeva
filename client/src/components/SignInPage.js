@@ -2,6 +2,8 @@ import axios from "axios";
 import React from "react";
 import {withRouter} from "react-router";
 import {Link} from 'react-router-dom';
+import { subscribeUser } from '../subscription';
+
 
 const SignInPage = (props)=>{
     const emailRef = React.createRef();
@@ -18,6 +20,7 @@ const SignInPage = (props)=>{
             console.log(resp.data);
             localStorage.setItem('user',resp.data.token);
             console.log(props.history);
+            subscribeUser();
             props.history.push("/");
         })
         .catch(err=>{

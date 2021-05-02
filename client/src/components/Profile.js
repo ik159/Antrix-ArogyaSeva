@@ -21,11 +21,12 @@ const Profile = (props)=>{
     const [help,setHelp] = useState('Financial Help');
     const [isdonor,setIsdonor] = useState(false);
     const [donor,setDonor] = useState('');
-   const [isplasma,setIsPlasma]  = useState(false);
+   const [isplasma,setIsPlasma]  = useState(true);
    const bloodtypeRef = createRef();
 
     const plasmahandleChange = (e)=>{
         const ans = e.target.value;
+        console.log(ans);
         if(ans=="yes"){
             setIsPlasma(true);
         }
@@ -38,13 +39,20 @@ const addDonor = ()=>{
         bloodtype:bloodtypeRef.current.value,
         plasma : isplasma
     };
-    //console.log(data);
-    axios.post("http://localhost/8082/volunteers/donors",data,{
+    console.log(data);
+    axios.post("http://localhost:8082/volunteers/donors",data,{
         headers:{
             Authorization:'Bearer '+ localStorage.getItem("user")
         }
     })
     .then((resp)=>{
+        //console.log(resp.data.plasma);
+        if(resp.data.plasma){
+            resp.data.plasma="Yes";
+        }
+        else{
+            resp.data.plasma="No";
+        }
          setDonor(resp.data);
          console.log(donor);
     })
@@ -52,7 +60,7 @@ const addDonor = ()=>{
 }
 
     const handleChange = (e)=>{
-        console.log(e.target.value);
+        //console.log(e.target.value);
         setHelp(e.target.value);
       }
       const addHelp =()=>{
@@ -259,7 +267,7 @@ const SaveHospData = ()=>{
                     {isdonor && (
        <div>
            <p>Blood group : {donor.bloodtype}</p>
-           <p>Plasma : {donor.plasma}</p>
+           <p>Plasma :{donor.plasma}</p>
                  <div className="cardHeader">Edit details</div>
                     <div className="cardBody">
                         <div className="inputGroup">

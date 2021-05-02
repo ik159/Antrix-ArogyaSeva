@@ -65,8 +65,8 @@ export default function Register(props) {
    const password = passwordRef.current.value;
    const phoneno = phonenoRef.current.value;
    const place = placeRef.current.value;
-   //const isVolunteer = volunteerRef.current.value;
-   const isVolunteer = false;
+   const isVolunteer = volunteerRef.current.value;
+  //  const isVolunteer = false;
    console.log(name);
    console.log(email);
    console.log(password);

@@ -7,6 +7,7 @@ import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import { red } from '@material-ui/core/colors';
 import Chip from '@material-ui/core/Chip';
+import "./FeedCard.css";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -19,27 +20,37 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function FeedCard(props) {
-  const classes = useStyles();
+  //const classes = useStyles();
   const feed = props.feed;
   //console.log(feed);
 
   return (
-    <Card className={classes.root}>
-      <CardHeader
-        avatar={
-          <Avatar  className={classes.avatar}>
-            R
-          </Avatar>
-        }
-        title={feed.author.name}
-        subheader={feed.author.phoneno}
-      />
-      <CardContent>
-        <Typography variant="body2" color="textSecondary" component="p">
-          {feed.content}
-        </Typography>
-        <Chip label={feed.category}/>
-      </CardContent>
-    </Card>
+    // <Card className={classes.root}>
+    //   <CardHeader
+    //     avatar={
+    //       <Avatar  className={classes.avatar}>
+    //         R
+    //       </Avatar>
+    //     }
+    //     title={feed.author.name}
+    //     subheader={feed.author.phoneno}
+    //   />
+    //   <CardContent>
+    //     <Typography variant="body2" color="textSecondary" component="p">
+    //       {feed.content}
+    //     </Typography>
+    //     <Chip label={feed.category}/>
+    //   </CardContent>
+    // </Card>
+    <div className="Card">
+       <div className="cardBody">
+         <h3>{feed.category}</h3>
+         {feed.content}
+       </div>
+       <div>
+         <p>Posted by : {feed.author.name}</p>
+         <p>  {feed.author.phoneno}</p>
+       </div>
+    </div>
   );
 }
