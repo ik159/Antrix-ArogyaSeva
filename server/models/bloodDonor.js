@@ -12,7 +12,8 @@ const BloodDonorSchema = new Schema({
     },
     donor:{
         type:Schema.Types.ObjectId,
-        ref:'User'
+        ref:'User',
+        unique:true
     }
 });
 

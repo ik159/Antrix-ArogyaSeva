@@ -37,6 +37,7 @@ exports.createPost = async(req,res)=>{
         res.json({post,'msg':'Post added successfully'});
     }
     catch(err){
+        console.log(err.toString());
         res.status(500).json({'err':err.toString()});
     } 
 }

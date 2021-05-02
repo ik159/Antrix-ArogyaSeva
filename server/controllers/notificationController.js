@@ -49,14 +49,21 @@ exports.broadcast = async(req,res)=>{
 
 exports.notifyVolunteers = async(req,res)=>{
     try{
-        const volunteers = await user.find({isVolunteer:true,help:req.query.help}).select("_id");
+        const volunteers = await (await user.find({isVolunteer:true}).lean().select("_id"));
         console.dir(volunteers);
+        var volunteersid =[];
+        for(var i=0;i<volunteers.length;i++){
+           volunteersid.push(volunteers._id);
+        }
+        console.log(volunteersid);
         const subscribers = await Subscription.find(
             {user:{
-                $in:volunteers
+                $in:volunteersid
             }});
-        const help = req.body.help;
-        const payload = JSON.stringify({title:`${help} needed!`});
+        //const help = req.query.help;
+        //console.log(help);
+        console.log(subscribers);
+        const payload = JSON.stringify({title:`Help needed!`});
         for(var i=0;i<subscribers.length;i++){
             webpush.sendNotification(subscribers[i],payload)
     .then(result => console.log("Result: "+result))
