@@ -1,0 +1,16 @@
+.card {
+    
+    display: flex;
+  justify-content: center;
+}
+.inner {
+    
+    margin-top: 50px;
+    width: 350px;
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(230, 216, 216, 0.2);
+  border-radius: 5px; 
+}
+.link-m{
+  margin-left:5%;
+}

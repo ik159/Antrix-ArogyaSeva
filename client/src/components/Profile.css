@@ -1,0 +1,39 @@
+.name_place {
+    padding: 15px 15px;
+    margin: 0 auto;
+    text-align: center;
+    background-color: white;
+    width: 230px;
+    box-shadow: 0 4px 8px 0 rgba(150, 133, 133, 0.9);
+  border-radius: 5px;
+}
+
+.name_place span {
+    font-size : 20px ;
+    font-weight : 700 ;
+    float: left
+}
+
+.cardBody {
+    margin: 0 auto;
+}
+
+.cardBody label{
+    color: rgb(219, 159, 159);
+}
+
+.cardBody p {
+    text-align: center;
+    color: rgb(199, 206, 212);
+    font-size: 20px;
+}
+
+.cardBody p span {
+    color: aliceblue;
+    font-size: 25px;
+}
+
+.donorupdate p {
+    text-align: center;
+    color: rgb(219, 159, 159);
+}
