@@ -164,20 +164,24 @@ const SaveHospData = ()=>{
             <h1 style={{textAlign : "center" , color : "white"}}>Profile Page</h1>
             {isOrg && (
                 <div>
-                    <p>Name: {user.name}</p>
-                    <p>Email : {user.email}</p>
-                    <p>Contact No : {user.email}</p>
-                    <p>Location : {user.location}</p>
+                   <div className="name_place">
+                    <p><span >Name : </span> {user.name}</p>
+                    <p><span >Email : </span> {user.email}</p>
+                    <p><span >Contact : </span>{user.email}</p>
+                    <p><span >Location : </span> {user.location}</p>
+                    </div>
                     {isHosp &&(
                             <div className="card">
-                                <div>
-                               <p>Number of normal beds : {user.beds}</p>
-                               <p>Number of icu beds : {user.icubeds}</p>
-                               <p>Number of icu beds with O2: {user.icuwitho2}</p>
+                                <div style={{color: " rgb(219, 159, 159)" , fontSize:"23px"}}>
+                               <p>Number of normal beds : <span style={{color: " white"}} >{user.beds}</span></p>
+                               <p>Number of icu beds : <span style={{color: " white"}} >{user.icubeds}</span></p>
+                               <p>Number of icu beds with oxygen: <span style={{color: " white"}} >{user.icuwitho2}</span></p>
+                               <p> <button style={{backgroundColor :"black" , color : "white" , textAlign : "center" , padding : "10px 20px"}} onClick={editDataBool}>Edit data</button></p>
                                 </div>
-                            <button onClick={editDataBool}>Edit data</button>
+                           
                           {editHosp && (
-                       <div>
+                              
+                       <div >
                         <div className="cardHeader">Edit data</div>
                             <div className="cardBody">
                                 <div className="inputGroup">
@@ -202,11 +206,11 @@ const SaveHospData = ()=>{
                     )}
                     {!isHosp &&(
                         <div>
-                            <p>Supplies </p>
+                            <h2 style={{textAlign : "center" , color: "rgb(219, 159, 159)"}}>Supplies </h2>
                         <ul>
                         {supplies.map((supply)=>{
                      <ul>
-                         <li>Name: {supply.name}hhh</li>
+                         <li>Name: {supply.name}</li>
                          <li>Quantity : {supply.quantity}</li>
                          <li>Description: {supply.description}</li>
                          </ul>
@@ -216,8 +220,8 @@ const SaveHospData = ()=>{
                         
                         {!addsupply &&(
        <div>
-                 <div className="cardHeader">Add {user.category}</div>
-                    <div className="cardBody">
+                 <div className="cardHeader" style={{color: 'white'}}>Add {user.category}</div>
+                    <div className="cardBody" style={{width: '500px'}}>
                         <div className="inputGroup">
                                 <label htmlFor="name">Name</label>
                          <input type="text" name="name" id="name" ref={supnameRef}></input>
@@ -230,7 +234,8 @@ const SaveHospData = ()=>{
                  <label htmlFor="desc">Description</label>
                 <input type="text" name="desc" id="desc" ref={supdescRef}></input>
                 </div>
-                <button onClick={addSupply}>Add</button>
+               <div>
+               <button onClick={addSupply}>Add</button> </div>
                 </div>
                 </div>
                         )}
