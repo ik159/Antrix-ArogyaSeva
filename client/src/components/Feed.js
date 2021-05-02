@@ -71,10 +71,10 @@ export default function Feed(props) {
         })
         .catch(err=>{console.log(err)})
     }
-const notify = (resp)=>{
-    console.log('notify called');
+const notify = ()=>{
+    console.log(category);
     axios.get("http://localhost:8082/notifications/volunteers",{
-        params:{'help':resp.data.help},
+        params:{'help':category},
         headers:{
             Authorization: 'Bearer '+ localStorage.getItem("user"),
         }
@@ -91,6 +91,7 @@ const postFeed = ()=>{
     const data = {
         content,category
     };
+    notify();
     console.log(data);
     axios.post("http://localhost:8082/posts",data,{
         headers:{
@@ -100,7 +101,8 @@ const postFeed = ()=>{
     })
     .then((resp)=>{
         //alert(resp.data);
-        notify(resp);
+        var resphelp = resp.data.help;
+        notify();
         getFeeds();
         content='';
 
@@ -181,6 +183,7 @@ const postFeed = ()=>{
                     </select>
                 </div>
                 <button onClick={postFeed}>Post</button>
+                <button onClick={notify}>Notify</button>
             </form>
         </div>
     )

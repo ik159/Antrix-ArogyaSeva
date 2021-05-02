@@ -32,16 +32,21 @@ export default function NavBar() {
 
   const logoutUser = ()=>{
     Auth.logout();
+    CurrentUser();
   }
 
-  useEffect(()=>{
+  const CurrentUser = ()=>{
     if(localStorage.getItem("user")){
       setIsUser(true);
     }
     else{
     setIsUser(false);
-    console.log(isUser);
-  }},[])
+  }}
+
+  useEffect(()=>{
+    CurrentUser();
+    //console.log(isUser);
+  },[])
 
   return (
     <div className={classes.root}>
@@ -51,7 +56,7 @@ export default function NavBar() {
           <img  src= "https://www.pinclipart.com/picdir/middle/333-3337767_healthcare-clip-art-free-clipart-healthcare-icon-png.png" />
           
           <Typography variant="h6" className={classes.title}>
-            AarogyaSeva
+           <Link style={{color:"white"}} to="/">AarogyaSeva</Link> 
           </Typography>
           {/* <Button color="inherit">UserName</Button> */}
           {/* <Button color="inherit">Profile</Button> */}

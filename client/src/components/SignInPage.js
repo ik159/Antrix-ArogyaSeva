@@ -3,6 +3,7 @@ import React from "react";
 import {withRouter} from "react-router";
 import {Link} from 'react-router-dom';
 import { subscribeUser } from '../subscription';
+import "./LoginPage.css";
 
 
 const SignInPage = (props)=>{
@@ -30,6 +31,7 @@ const SignInPage = (props)=>{
 
     return (
         <div className="card">
+            <div className="inner">
             <div className="cardHeader">Signin</div>
             <div className="cardBody">
                 <div className="inputGroup">
@@ -43,6 +45,7 @@ const SignInPage = (props)=>{
                 <button onClick={signinUser}>Signin</button>
             </div>
             <Link to="/signup" className="acnt"><p>No Account?</p></Link>
+        </div>
         </div>
     )
 };

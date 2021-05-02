@@ -40,14 +40,15 @@ const LoginPage = (props)=>{
             console.log(resp.data);
             localStorage.setItem('user',resp.data.token);
             console.log(props.history);
-            //askForNPerm();
+            askForNPerm();
             subscribeUser();
-            //broadcast();
+            
             props.history.push("/");
         })
         .catch(err=>{
             console.log(err);
         })
+        broadcast();
     }
 
     return (
