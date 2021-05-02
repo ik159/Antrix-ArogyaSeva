@@ -9,6 +9,7 @@ import FormControl from '@material-ui/core/FormControl';
 import MenuItem from '@material-ui/core/MenuItem';
 import FeedCard from './FeedCard';
 import axios from 'axios';
+import * as serviceWorkerRegistration from '../serviceWorkerRegistration';
 import Auth from '../auth/auth';
 import { PinDropSharp } from '@material-ui/icons';
 // const useStyles = makeStyles((theme) => ({
@@ -61,6 +62,18 @@ export default function Feed(props) {
     const [feeds,setFeeds] = useState([]);
     const [category,setCategory] = useState('Financial Help');
     const contentRef = createRef();
+
+    function askForNPerm() {
+        Notification.requestPermission(function(result) {
+          console.log("User choice", result);
+          if (result !== "granted") {
+            console.log("No notification permission granted!");
+          } else {
+            serviceWorkerRegistration.register();;// Write your custom function that pushes your message
+          }
+        });
+      }
+
     const handleChange = (e)=>{
         setCategory(e.target.value);
       }
@@ -71,18 +84,28 @@ export default function Feed(props) {
         })
         .catch(err=>{console.log(err)})
     }
-const notify = ()=>{
-    console.log(category);
-    axios.get("http://localhost:8082/notifications/volunteers",{
-        params:{'help':category},
-        headers:{
-            Authorization: 'Bearer '+ localStorage.getItem("user"),
-        }
-    }
-    ).then((resp)=>{
-        console.log(resp.data);
-    })
-    .catch(err=>console.log(err));
+const notify = async()=>{
+    console.log('notify called');
+    // axios.get("http://localhost:8082/notifications/volunteers",{
+    //     params:{'help':category},
+    //     headers:{
+    //         Authorization: 'Bearer '+ localStorage.getItem("user"),
+    //     }
+    // }
+    // ).then((resp)=>{
+    //     console.log(resp.data);
+    // })
+    // .catch(err=>console.log(err));
+     await fetch(`${process.env.REACT_APP_API_URL}/notifications/volunteers`, {
+        method: 'GET',
+        headers: {
+          'content-type': 'application/json',
+        },
+      })
+      .then((resp)=>{
+          console.log(resp.data);
+      })
+      .catch(err=>console.log(err));
 }
 
 
@@ -91,7 +114,7 @@ const postFeed = ()=>{
     const data = {
         content,category
     };
-    notify();
+    // notify();
     console.log(data);
     axios.post("http://localhost:8082/posts",data,{
         headers:{
@@ -102,15 +125,13 @@ const postFeed = ()=>{
     .then((resp)=>{
         //alert(resp.data);
         var resphelp = resp.data.help;
-        notify();
+       
         getFeeds();
-        content='';
-
+        notify();
        // props.history.push("/feed");
     })
     .catch(err=>console.log(err))
-
-
+    // notify();
 }
 
     useEffect(()=>{
@@ -183,7 +204,7 @@ const postFeed = ()=>{
                     </select>
                 </div>
                 <button onClick={postFeed}>Post</button>
-                <button onClick={notify}>Notify</button>
+                {/* <button onClick={notify}>Notify</button> */}
             </form>
         </div>
     )
