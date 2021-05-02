@@ -188,14 +188,14 @@ const postFeed = ()=>{
             </Button>
             </form> */}
             <form noValidate>
-                <h2>Post a Request</h2>
+                <h2 className="feedcolor">Post a Request</h2>
             <div className="inputGroup">
-                    <label htmlFor="content">Content</label>
+                    <label className="feedcolor" htmlFor="content"className="feedcolor">Content</label>
                     <input type="text" name="content" id="content" ref={contentRef}></input>
                 </div>
                 <div className="inputGroup" onChange={handleChange}>
                     <br></br>
-                <label>What kind of help do you need?</label>
+                <label className="feedcolor">What kind of help do you need?</label>
                     <select value={category} onChange={handleChange}>
                         <option value={'Financial Help'}>Financial Help</option>
                         <option value={'Blood Donor'}>Blood Donor</option>
