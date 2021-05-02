@@ -136,11 +136,11 @@ const SaveHospData = ()=>{
     const icubeds = icubedsRef.current.value;
     const icuwitho2 = icuwitho2Ref.current.value;
     const data = {
-        supplies:{
-            user,beds,icubeds,icuwitho2
-        }
+        
+            beds,icubeds,icuwitho2
+        
     }
-    
+    console.log(data);
     axios.put("http://localhost:8082/hospitals/"+user._id,data,{
         headers:{
             Authorization:'Bearer '+ localStorage.getItem("user")

@@ -60,6 +60,8 @@ export default function NavBar() {
           </Typography>
           {/* <Button color="inherit">UserName</Button> */}
           {/* <Button color="inherit">Profile</Button> */}
+
+          <Button color="inherit">Chat Bot</Button>
           <Link to="/profile" style={{color:"white"}}>Profile</Link><span>&nbsp;&nbsp;</span>
          {isUser && (
           <Button color="inherit"  onClick={logoutUser}>Logout</Button>
