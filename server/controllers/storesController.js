@@ -54,16 +54,18 @@ exports.addSupplies = async(req,res)=>{
             if(!product){
                 return res.status(400).json({'err':'Unable to create product'});
             }
+            console.log(product);
             supplies_id.push(product._id);
        // }
         //console.dir(supplies_id);
         const store = await Org.findOneAndUpdate(
-            {category:req.body.category,_id:req.params.id},{
+            {_id:req.params.id},{
                 $push:{supplies:
                     // {$each:supplies_id}
                     product._id
                 }
             },{new:true});
+            console.log(store);
         if(!store){
             return res.status(404).json({'err':err.toString()});
         }

@@ -167,7 +167,7 @@ const SaveHospData = ()=>{
                    <div className="name_place">
                     <p><span >Name : </span> {user.name}</p>
                     <p><span >Email : </span> {user.email}</p>
-                    <p><span >Contact : </span>{user.email}</p>
+                    <p><span >Contact : </span>{user.contactno}</p>
                     <p><span >Location : </span> {user.location}</p>
                     </div>
                     {isHosp &&(

@@ -4,7 +4,7 @@ const PostSchema = new mongoose.Schema({
     category:{
         type:String,
         required:true,
-        enum:['Financial help','Plasma Donor','Blood Donor','Other']
+        enum:['Financial Help','Plasma Donor','Blood Donor','Other']
     },
     title:{
         type:String

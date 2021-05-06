@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
 export default function FeedCard(props) {
   //const classes = useStyles();
   const feed = props.feed;
-  //console.log(feed);
+  console.log(feed);
 
   return (
     // <Card className={classes.root}>

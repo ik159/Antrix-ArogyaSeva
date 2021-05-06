@@ -48,7 +48,7 @@ const LoginPage = (props)=>{
         .catch(err=>{
             console.log(err);
         })
-        broadcast();
+        //broadcast();
     }
 
     return (

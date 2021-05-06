@@ -30,6 +30,7 @@ exports.getPost = async(req,res)=>{
 exports.createPost = async(req,res)=>{
     try{
         req.body.author = req.user;
+        console.log(req.body.author);
         const post = await Post.create(req.body);
         if(!post){
             return res.status(400).json({'err':err.toString()});

@@ -98,7 +98,7 @@ export default function Donors() {
     <div className={classes.root}>
         <div style={{marginRight: "20px"}}>
             <h4>
-                Plasma Donors
+                Blood Donors
             </h4>
         <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="customized table">
@@ -126,7 +126,7 @@ export default function Donors() {
         </div>
         <div style={{marginLeft: "20px"}}>
         <h4>
-                Blood Donors
+                Plasma Donors
             </h4>
         <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="customized table">
