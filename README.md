@@ -14,13 +14,13 @@ MERN stack is the idea of using Javascript/Node for fullstack web development.
 ```terminal
 $ git clone https://github.com/ik159/Antrix-ArogyaSeva/
 ```
-## Client-side usage
+### Client-side usage
 ```terminal
 $ cd client   // go to client folder
 $ npm i       // npm install pacakges
 $ npm start // run it locally
-
-## Server-side usage
+```
+### Server-side usage
 $ cd server   // go to server folder
 $ npm i       // npm install pacakges
 $ npm start  // run it locally
