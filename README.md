@@ -21,6 +21,7 @@ $ npm i       // npm install pacakges
 $ npm start // run it locally
 ```
 ### Server-side usage
+```terminal
 $ cd server   // go to server folder
 $ npm i       // npm install pacakges
 $ npm start  // run it locally
